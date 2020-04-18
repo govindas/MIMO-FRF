@@ -22,26 +22,41 @@ time_output{4} = outputvalues;
 ts = times(2) -times(1);
 
 %%
-[freq,frff] = mimo_frf_H1(time_input, time_output, ts)
+[freq,frff1] = mimo_frf_H1(time_input, time_output, ts);
+[freq,frff2] = mimo_frf_H2(time_input, time_output, ts);
+[freq,frffv] = mimo_frf_HV(time_input, time_output, ts);
 %%
 figure;
-loglog(freq, abs(frff{1,1}));  hold all;
-loglog(freq, abs(frff{1,2}));
-loglog(freq, abs(frff{2,1}));
-loglog(freq, abs(frff{2,2}))
+loglog(freq, abs(frff1{1,1}));  hold all;
+loglog(freq, abs(frff2{1,1}));
+loglog(freq, abs(frffv{1,1}));
+% loglog(freq, abs(frff{2,1}));
+% loglog(freq, abs(frff{2,2}))
+figure;
+loglog(freq, abs(frff1{1,2}));  hold all;
+loglog(freq, abs(frff2{1,2}));
+loglog(freq, abs(frffv{1,2}));
+figure;
+loglog(freq, abs(frff1{2,1}));  hold all;
+loglog(freq, abs(frff2{2,1}));
+loglog(freq, abs(frffv{2,1}));
+figure;
+loglog(freq, abs(frff1{2,2}));  hold all;
+loglog(freq, abs(frff2{2,2}));
+loglog(freq, abs(frffv{2,2}));
 
 %%
-figure;
-loglog(freq, abs(frff{1,1}-frff{1,2})); hold all;
-load sample_data\asymexc_1;
-freqresp = fft(outputvalues(:,1))./fft(inputvalues(:,1));
-freqresp = freqresp(1:length(frff{1,1}));
-loglog(freq, abs(freqresp)); 
-legend('H1', 'exp');
+% figure;
+% loglog(freq, abs(frff{1,1}-frff{1,2})); hold all;
+% load sample_data\asymexc_1;
+% freqresp = fft(outputvalues(:,1))./fft(inputvalues(:,1));
+% freqresp = freqresp(1:length(frff{1,1}));
+% loglog(freq, abs(freqresp));
+% legend('H1', 'exp');
 
 %%
-figure;
-semilogx(freq, phase(frff{1,1}));  hold all;
-semilogx(freq, phase(frff{1,2}));
-semilogx(freq, phase(frff{2,1}));
-semilogx(freq, phase(frff{2,2}))
+% figure;
+% semilogx(freq, phase(frff{1,1}));  hold all;
+% semilogx(freq, phase(frff{1,2}));
+% semilogx(freq, phase(frff{2,1}));
+% semilogx(freq, phase(frff{2,2}))
